@@ -1,29 +1,46 @@
 #ifndef __POTENTIALS__
 #define __POTENTIALS__
 
-#include <vector>
 #include <iostream>
-
-// commento
+#include <vector>
 
 class genericPotential {
 
-    public:
-
-    virtual std::vector<double> evalute(const std::vector<double> &x);
+public:
+  virtual ~genericPotential() = default;
+  virtual double evaluate(const double &x) const = 0; 
 };
 
-class SquareWell : public genericPotential{
+class SquareWell : public genericPotential {
 
+public:
+  SquareWell();
+  SquareWell(double h, double w);
+  void setHeight(double h) { _height = h; }
+  void setWidth(double w) { _width = w; }
+  double evaluate(const double &x) const override;
+
+private:
+  double _width;
+  double _height;
 };
 
-class WoodSaxon : public genericPotential{
+class HarmonicOscillator : public genericPotential {
 
+public:
+  HarmonicOscillator();
+  HarmonicOscillator(double w);
+  void setOmega(double w) { _omega = w; }
+  double evaluate(const double &x) const override;
 
+private:
+  double _omega;
 };
 
-class Adiabatic : public genericPotential {
+class Yukawa : public genericPotential {};
 
-};
+class WoodSaxon : public genericPotential {};
 
-#endif //POTENTIALS
+class Morse : public genericPotential {};
+
+#endif // POTENTIALS

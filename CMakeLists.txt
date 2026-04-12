@@ -3,7 +3,7 @@ project(SchrodingerSolver
 
         VERSION 0.1.0
         DESCRIPTION "C++ solver for Schrodinger equation"
-        LANGUAGE CXX
+        LANGUAGES CXX
         )
 
 include_directories(
