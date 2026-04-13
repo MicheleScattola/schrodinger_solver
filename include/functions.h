@@ -3,53 +3,63 @@
 
 #include <iostream>
 #include <vector>
-#include <cmath>
-#include "VectorOperations.h"
 
-//Classe astratta per la restituzione della derivata prima valutata nel punto x
-class FunzioneVettorialeBase {
+const float HBAR = 6.582119569e-16; // [eV . s]
+const float M_PROTON = 938.28e6; // [MeV / c^2]
+const float M_NEUTRON = 939.57e6; // [MeV / c^2]
+const float M_ELECTRON = 0.510998950e6; // [MeV / c^2]
+const float SPEED_C = 299792458; // [m / s]
 
-    public:
+class genericFunction {
 
-    virtual vector<double> Eval(double, const vector<double> &) const = 0;
+public:
+  virtual ~genericFunction() = default;
+  virtual float evaluate(const float &x) const = 0; 
 };
 
-class OscillatoreArmonico : public FunzioneVettorialeBase {
+class SquareWell : public genericFunction {
 
-    public:
+public:
+  SquareWell();
+  SquareWell(float h, float w);
+  void setHeight(float h) { _height = h; }
+  void setWidth(float w) { _width = w; }
+  float evaluate(const float &x) const override;
 
-    OscillatoreArmonico(double) ;
-    virtual vector<double> Eval(double, const vector<double> &) const;
-
-    private:
-    double m_omega0 ;
+private:
+  float _width;
+  float _height;
 };
 
-class Pendolo : public FunzioneVettorialeBase {
+class HarmonicOscillator : public genericFunction {
 
-    public:
+public:
+  HarmonicOscillator();
+  HarmonicOscillator(float w);
+  void setOmega(float w) { _omega = w; }
+  float evaluate(const float &x) const override;
 
-    Pendolo(double, double);
-    virtual vector<double> Eval(double, const vector<double> &) const;
-
-    private:
-    double m_omega, m_L ;
-    double g = 9.806 ;
+private:
+  float _omega;
 };
 
-class OscillatoreForzato : public FunzioneVettorialeBase {
+class Yukawa : public genericFunction {};
 
-    public:
+class WoodSaxon : public genericFunction {};
 
-    OscillatoreForzato(double, double, double) ;
-    virtual vector<double> Eval(double, const vector<double> &) const;
-    double GetA() const {return m_alpha;};
-    void SetOmega(double omega) {m_omega = omega;};
-    void SetOmega0(double omega0) {m_omega0 = omega0;};
-    void SetAlpha(double alpha) {m_alpha = alpha;};
+class Morse : public genericFunction {};
 
-    private:
-    double m_omega, m_omega0, m_alpha;
+// kinetic functions
+class FreeKinetic : public genericFunction {
+
+  public:
+  FreeKinetic();
+  FreeKinetic(float mass) {_mass = mass;};
+  void setMass(float mass) {_mass = mass;};
+  float evaluate(const float &x) const override;
+
+  private:
+  float _mass;
 };
 
-#endif // __FUNCTIONS__
+#endif // POTENTIALS

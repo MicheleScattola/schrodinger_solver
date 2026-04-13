@@ -1,7 +1,7 @@
 #ifndef __DIFF_EQ__
 #define __DIFF_EQ_
 
-#include "potentials.h"
+#include "functions.h"
 #include <vector>
 
 class differentialEquation {
@@ -13,4 +13,4 @@ class RungeKutta : public differentialEquation {};
 
 class Numerov : public differentialEquation {};
 
-#endif __DIFF_EQ__
+#endif

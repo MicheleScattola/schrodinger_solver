@@ -1,4 +1,4 @@
-#include "../include/potentials.h"
+#include "../include/functions.h"
 
 #include <cmath>
 #include <iostream>
@@ -9,11 +9,11 @@ SquareWell::SquareWell() {
   _width = 0.;
   _height = 0.;
 }
-SquareWell::SquareWell(double height, double width) {
+SquareWell::SquareWell(float height, float width) {
   _height = height;
   _width = width;
 }
-double SquareWell::evaluate(const double &x) const {
+float SquareWell::evaluate(const float &x) const {
   if (std::abs(x) > _width)
     return 0.0;
   else
@@ -22,8 +22,8 @@ double SquareWell::evaluate(const double &x) const {
 
 // harmonic oscillator
 HarmonicOscillator::HarmonicOscillator() { _omega = 0.; }
-HarmonicOscillator::HarmonicOscillator(double omega) { _omega = omega; }
-double HarmonicOscillator::evaluate(const double &x) const {
+HarmonicOscillator::HarmonicOscillator(float omega) { _omega = omega; }
+float HarmonicOscillator::evaluate(const float &x) const {
   return 0.5*_omega*_omega*x*x;
 }
 
@@ -32,3 +32,8 @@ double HarmonicOscillator::evaluate(const double &x) const {
 // WoodSaxon
 
 // Morse
+
+// kinetic functions
+float FreeKinetic::evaluate(const float &x) const {
+  return -HBAR*HBAR/(2.0*_mass);
+}
